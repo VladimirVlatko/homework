@@ -1,2 +1,2 @@
-# homework
+# Homework
 Scalefocus Academy Homework.
