@@ -1,5 +1,0 @@
-my_name = "vladimir"
-environment = "homework"
-location = "West Europe"
-my_public_ip = "92.53.55.228"
-my_password = "Test123."
