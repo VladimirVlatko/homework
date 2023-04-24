@@ -1,7 +1,0 @@
----
-http_port: 8000
-https_port: 4443
-html_welcome_msg: "Hello Scalefocus Academy!"
-mysql_user: simple_user
-mysql_password: "{{ vaultMySqlPassword }}"
-mysql_root_password: "{{ vaultMySqlRootPassword }}"
