@@ -1,0 +1,13 @@
+[control]
+ansible-control
+[proxy]
+loadbalancer
+[webservers]
+web01
+web02
+[database]
+db01
+[webstack:children]
+proxy
+webservers
+database

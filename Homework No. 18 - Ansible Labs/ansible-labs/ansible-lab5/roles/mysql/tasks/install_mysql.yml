@@ -1,0 +1,13 @@
+- name: Install MySQL server
+  apt:
+    name: mysql-server
+    update_cache: yes
+
+- name: Installing python module MySQL-python
+  pip:
+    name: PyMySQL
+
+- name: Ensure mysql-server is running
+  service:
+    name: mysql
+    state: started

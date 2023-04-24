@@ -1,0 +1,46 @@
+- name: Create my.cnf configuration file
+  template:
+    src: templates/my.cnf.j2
+    dest: /etc/mysql/conf.d/mysql.cnf
+  notify: restart mysql
+
+- name: Configure MySQL server to listen on all interfaces
+  lineinfile:
+    path: /etc/mysql/mysql.conf.d/mysqld.cnf
+    regexp: '^bind-address'
+    line: 'bind-address = 0.0.0.0'
+  notify:
+    - restart mysql
+
+- name: Configure MySQL root password
+  mysql_user:
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+    user: root
+    password: "{{ mysql_root_password }}"
+    host_all: yes
+    host: "%"
+    update_password: always
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+
+- name: Restart the mysql-server
+  service:
+    name: mysql
+    state: restarted
+
+- name: "Create new database {{ mysql_database }}"
+  mysql_db:
+    name: "{{ mysql_database }}"
+    state: present
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+
+- name: "Create new user {{ mysql_user }} with all database privileges"
+  mysql_user:
+    name: "{{ mysql_user }}"
+    password: "{{ mysql_password }}"
+    priv: "{{ mysql_database }}.*:ALL"
+    host: '%'
+    state: present
+    login_user: root
+    login_password: "{{ mysql_root_password }}"

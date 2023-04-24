@@ -1,0 +1,11 @@
+- name: "Install Common packages"
+  apt: name={{ item }} state=latest
+  with_items:
+    - net-tools
+    - tree
+    - python3-pip
+
+- name: Install pymysql python package
+  pip:
+    name: pymysql
+
