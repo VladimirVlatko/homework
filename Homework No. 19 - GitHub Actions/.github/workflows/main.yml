@@ -1,0 +1,38 @@
+name: Python Test
+
+# This workflow will run on push events to the default branch (usually main or master)
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Checkout the codebase
+      # This step checks out the current codebase from the repository being tested. 
+      # The `actions/checkout` action is used to perform this operation.
+      - uses: actions/checkout@v3
+      
+      # Step 2: Set up Python environment
+      # This step sets up the Python environment needed for testing. 
+      # The `actions/setup-python` action is used to set the desired version of Python to 3.9.
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.9'
+      
+      # Step 3: Install dependencies
+      # This step installs the required dependencies specified in the `requirements.txt` file using `pip`.
+      - name: Install dependencies
+        run: |
+          # Upgrade pip to the latest version
+          python -m pip install --upgrade pip
+          
+          # Install dependencies specified in requirements.txt
+          pip install -r requirements.txt
+          
+      # Step 4: Run tests
+      # This step runs the tests using the `pytest` testing framework.
+      - name: Run tests
+        run: pytest
